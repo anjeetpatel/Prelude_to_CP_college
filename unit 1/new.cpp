@@ -1,18 +1,14 @@
-10 : 30 AM
-        emoji -
-    icon
-        three -
-    dots - icon
 #include <iostream>
-    using namespace std;
+using namespace std;
 
 struct node
 {
     int data;
-    struct node next;
+    struct node *next;
 };
 
-void print_reverse(node first)
+// Function to print the list in reverse order
+void print_reverse(node *first)
 {
     if (first == NULL)
         return;
@@ -21,11 +17,12 @@ void print_reverse(node first)
     cout << first->data << " ";
 }
 
+// Function to print the list
 void print_list(struct node *first)
 {
     if (first == NULL)
         return;
-    node temp = first;
+    node *temp = first;
     while (temp != NULL)
     {
         cout << temp->data << " ";
@@ -33,30 +30,29 @@ void print_list(struct node *first)
     }
 }
 
-struct node pop(struct node *first)
+// Function to remove the first element (pop)
+struct node *pop(struct node *first)
 {
     if (first == NULL)
         return NULL;
-    node temp = first;
+    node *temp = first;
     first = first->next;
 
     delete temp;
     return first;
 }
 
-struct node push(struct node *first, int key)
+// Function to add an element to the front (push)
+struct node *push(struct node *first, int key)
 {
-    node temp = new node;
+    node *temp = new node;
     temp->data = key;
-    temp->next = NULL;
-    if (first == NULL)
-        return temp;
     temp->next = first;
-
     return temp;
 }
 
-int top(struct node first)
+// Function to get the top element
+int top(struct node *first)
 {
     if (first == NULL)
         return -1;
@@ -64,7 +60,7 @@ int top(struct node first)
     return first->data;
 }
 
-main()
+int main()
 {
     node *first = NULL;
     first = push(first, 2);
@@ -79,5 +75,13 @@ main()
     first = pop(first);
     first = pop(first);
 
-    cout << top(first);
+    cout << "Top element: " << top(first) << endl;
+    cout << "List in order: ";
+    print_list(first);
+    cout << endl;
+    cout << "List in reverse order: ";
+    print_reverse(first);
+    cout << endl;
+
+    return 0;
 }
